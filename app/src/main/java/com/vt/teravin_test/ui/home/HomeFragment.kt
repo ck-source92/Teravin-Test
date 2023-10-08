@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.vt.teravin_test.core.source.Resource
 import com.vt.teravin_test.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +28,34 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observerView()
+    }
+
+    private fun observerView() {
+        homeViewModel.movies.observe(viewLifecycleOwner) {
+            if (it.data.isNullOrEmpty()) {
+                when (it) {
+                    is Resource.Loading -> {
+                        println("loading")
+                        println(it.data)
+                    }
+
+                    is Resource.Success -> {
+                        println("success")
+                        println(it.data)
+                    }
+
+                    is Resource.Error -> {
+                        println("error")
+                        println(it.message)
+                    }
+
+                    else -> {}
+                }
+            } else {
+                println("else data ${it.data}")
+            }
+        }
     }
 
     override fun onDestroy() {

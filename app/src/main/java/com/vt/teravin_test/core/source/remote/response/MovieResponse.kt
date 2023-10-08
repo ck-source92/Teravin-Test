@@ -20,44 +20,44 @@ data class MovieResponse(
 data class MovieItem(
 
 	@field:SerializedName("overview")
-	val overview: String? = null,
+	val overview: String,
 
 	@field:SerializedName("original_language")
-	val originalLanguage: String? = null,
+	val originalLanguage: String,
 
 	@field:SerializedName("original_title")
-	val originalTitle: String? = null,
+	val originalTitle: String,
 
 	@field:SerializedName("video")
-	val video: Boolean? = null,
+	val video: Boolean,
 
 	@field:SerializedName("title")
-	val title: String? = null,
+	val title: String,
 
 	@field:SerializedName("genre_ids")
-	val genreIds: List<Int?>? = null,
+	val genreIds: List<Int>,
 
 	@field:SerializedName("poster_path")
-	val posterPath: String? = null,
+	val posterPath: String,
 
 	@field:SerializedName("backdrop_path")
-	val backdropPath: String? = null,
+	val backdropPath: String,
 
 	@field:SerializedName("release_date")
-	val releaseDate: String? = null,
+	val releaseDate: String,
 
 	@field:SerializedName("popularity")
-	val popularity: Any? = null,
+	val popularity: Double,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Int? = null,
+	val voteAverage: Double,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Int,
 
 	@field:SerializedName("adult")
-	val adult: Boolean? = null,
+	val adult: Boolean,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null
+	val voteCount: Int
 )

@@ -1,6 +1,5 @@
 package com.vt.teravin_test.core.di
 
-import com.vt.teravin_test.BuildConfig
 import com.vt.teravin_test.core.source.remote.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -17,13 +16,8 @@ import java.util.concurrent.TimeUnit
 class NetworkModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        val loggingInterceptor = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        } else {
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
-        }
         return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
