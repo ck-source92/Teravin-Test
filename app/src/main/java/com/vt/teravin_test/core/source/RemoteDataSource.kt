@@ -17,12 +17,10 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     fun getAllMovie(): Flow<ApiResponse<List<MovieItem>>> {
 
-        println("hello result 2")
         return flow {
             try {
                 val response = apiService.getMovie(api_key)
                 val dataArray = response.results
-                println("result = ${dataArray}")
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.results))
                 } else {

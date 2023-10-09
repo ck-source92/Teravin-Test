@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
@@ -31,6 +30,11 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     emit(Resource.Error<ResultType>(apiResponse.errorMessage))
+                }
+
+                else -> {
+                    println("else ")
+                    emitAll(loadFromDatabase().map { Resource.Success(it) })
                 }
             }
         }

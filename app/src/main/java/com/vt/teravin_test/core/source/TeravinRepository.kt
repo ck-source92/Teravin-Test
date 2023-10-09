@@ -1,5 +1,6 @@
 package com.vt.teravin_test.core.source
 
+import androidx.lifecycle.MediatorLiveData
 import com.vt.teravin_test.DataMapper
 import com.vt.teravin_test.core.domain.model.Movie
 import com.vt.teravin_test.core.domain.repository.IMovieRepository
@@ -25,11 +26,11 @@ class TeravinRepository @Inject constructor(
                 }
             }
 
-            override fun fetchDataFromDatabase(data: List<Movie>?): Boolean =
-                data.isNullOrEmpty()
+            override fun fetchDataFromDatabase(data: List<Movie>?): Boolean {
+                return true
+            }
 
             override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> {
-                println("hello repos 2")
                 return remoteDataSource.getAllMovie()
             }
 
@@ -38,4 +39,10 @@ class TeravinRepository @Inject constructor(
                 localDataSource.insertMovieToLocal(movieEntity)
             }
         }.asFlow()
+
+    override fun getMovies(): Flow<List<Movie>> {
+        return localDataSource.getOfflineMovie().map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
+    }
 }

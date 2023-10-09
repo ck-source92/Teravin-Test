@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IMovieUsecase {
     fun getAllMovie(): Flow<Resource<List<Movie>>>
+    fun getOfflineMovie(): Flow<List<Movie>>
 }

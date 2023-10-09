@@ -11,4 +11,8 @@ class MovieInteractor @Inject constructor(private val movieRepository: IMovieRep
     override fun getAllMovie(): Flow<Resource<List<Movie>>> {
         return movieRepository.getAllMovie()
     }
+
+    override fun getOfflineMovie(): Flow<List<Movie>> {
+        return movieRepository.getMovies()
+    }
 }

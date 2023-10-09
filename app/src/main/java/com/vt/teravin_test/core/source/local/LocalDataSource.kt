@@ -10,4 +10,5 @@ import javax.inject.Singleton
 class LocalDataSource @Inject constructor(private val movieDao: MovieDao) {
     fun getAllMovie(): Flow<List<MovieEntity>> = movieDao.getAllMovie()
     suspend fun insertMovieToLocal(movie: List<MovieEntity>) = movieDao.insertMovie(movie)
+    fun getOfflineMovie(): Flow<List<MovieEntity>> = movieDao.getOfflineMovie()
 }
